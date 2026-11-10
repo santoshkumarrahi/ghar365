@@ -1,0 +1,6 @@
+{
+  "name": "Ghar365 - Pakistani Multi-Vendor Marketplace",
+  "description": "Ghar Ki Har Zaroorat, Ab Sirf Ek App Par! Hyper-local marketplace connecting Pakistani customers, verified shopkeepers, riders, and administrators with weight-based free delivery, real stock management, and local delivery zones.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

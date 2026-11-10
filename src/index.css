@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-emerald: #126B45;
+    --brand-gold: #F2B84B;
+    --brand-cream: #F7F5EF;
+    --brand-charcoal: #202C27;
+  }
+
+  body {
+    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  .font-urdu {
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', 'Urdu Typesetting', serif;
+    line-height: 1.8;
+  }
+}

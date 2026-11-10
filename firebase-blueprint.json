@@ -1,0 +1,165 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Registered user profile with role-based access",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "email": { "type": "string", "maxLength": 128 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "fullName": { "type": "string", "maxLength": 100 },
+        "role": { "type": "string", "enum": ["customer", "seller", "rider", "admin"] },
+        "province": { "type": "string", "maxLength": 60 },
+        "district": { "type": "string", "maxLength": 60 },
+        "city": { "type": "string", "maxLength": 60 },
+        "area": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 255 },
+        "cnic": { "type": "string", "maxLength": 20 },
+        "status": { "type": "string", "enum": ["active", "pending", "suspended"] },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "fullName", "phone", "role"]
+    },
+    "Shop": {
+      "title": "Shop",
+      "description": "Independent seller store configuration and local delivery zone setup",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "ownerId": { "type": "string", "maxLength": 128 },
+        "shopName": { "type": "string", "maxLength": 128 },
+        "ownerName": { "type": "string", "maxLength": 100 },
+        "phone": { "type": "string", "maxLength": 20 },
+        "cnic": { "type": "string", "maxLength": 20 },
+        "category": { "type": "string", "maxLength": 60 },
+        "province": { "type": "string", "maxLength": 60 },
+        "district": { "type": "string", "maxLength": 60 },
+        "city": { "type": "string", "maxLength": 60 },
+        "area": { "type": "string", "maxLength": 100 },
+        "address": { "type": "string", "maxLength": 255 },
+        "deliveryAreas": { "type": "string", "maxLength": 500 },
+        "deliveryRadiusKm": { "type": "number" },
+        "deliveryFee": { "type": "number" },
+        "minOrderValue": { "type": "number" },
+        "deliveryHours": { "type": "string", "maxLength": 100 },
+        "imageUrl": { "type": "string", "maxLength": 500 },
+        "verificationStatus": { "type": "string", "enum": ["pending", "under_review", "verified", "rejected", "suspended"] },
+        "complianceCategory": { "type": "string", "enum": ["standard", "lpg", "pharmacy", "water"] },
+        "licenseNumber": { "type": "string", "maxLength": 100 },
+        "rating": { "type": "number" },
+        "isOpen": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "ownerId", "shopName", "city", "verificationStatus"]
+    },
+    "Product": {
+      "title": "Product",
+      "description": "Multi-vendor product listing with independent pricing, units, weight, and inventory",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "shopId": { "type": "string", "maxLength": 128 },
+        "shopName": { "type": "string", "maxLength": 128 },
+        "name": { "type": "string", "maxLength": 150 },
+        "nameUrdu": { "type": "string", "maxLength": 150 },
+        "description": { "type": "string", "maxLength": 1000 },
+        "category": { "type": "string", "maxLength": 60 },
+        "subcategory": { "type": "string", "maxLength": 60 },
+        "brand": { "type": "string", "maxLength": 80 },
+        "sku": { "type": "string", "maxLength": 60 },
+        "price": { "type": "number" },
+        "discountPrice": { "type": "number" },
+        "unit": { "type": "string", "maxLength": 30 },
+        "minQuantity": { "type": "number" },
+        "maxQuantity": { "type": "number" },
+        "availableStock": { "type": "number" },
+        "lowStockThreshold": { "type": "number" },
+        "weightKg": { "type": "number" },
+        "isWeightEligible": { "type": "boolean" },
+        "hasVariants": { "type": "boolean" },
+        "imageUrl": { "type": "string", "maxLength": 500 },
+        "status": { "type": "string", "enum": ["active", "low_stock", "out_of_stock", "inactive"] },
+        "isPrescriptionRequired": { "type": "boolean" },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "shopId", "name", "price", "unit", "availableStock"]
+    },
+    "Order": {
+      "title": "Order",
+      "description": "Customer order with seller delivery group, itemized weights, and multi-step lifecycle",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 128 },
+        "orderNumber": { "type": "string", "maxLength": 30 },
+        "customerId": { "type": "string", "maxLength": 128 },
+        "customerName": { "type": "string", "maxLength": 100 },
+        "customerPhone": { "type": "string", "maxLength": 20 },
+        "customerCity": { "type": "string", "maxLength": 60 },
+        "customerArea": { "type": "string", "maxLength": 100 },
+        "customerAddress": { "type": "string", "maxLength": 255 },
+        "shopId": { "type": "string", "maxLength": 128 },
+        "shopName": { "type": "string", "maxLength": 128 },
+        "items": { "type": "string", "maxLength": 5000 },
+        "subtotal": { "type": "number" },
+        "deliveryFee": { "type": "number" },
+        "totalWeightKg": { "type": "number" },
+        "isFreeDelivery": { "type": "boolean" },
+        "totalAmount": { "type": "number" },
+        "paymentMethod": { "type": "string", "enum": ["easypaisa", "jazzcash", "cod"] },
+        "paymentStatus": { "type": "string", "enum": ["pending", "verification_pending", "verified", "rejected"] },
+        "paymentReference": { "type": "string", "maxLength": 60 },
+        "paymentEvidenceUrl": { "type": "string", "maxLength": 500 },
+        "orderStatus": { "type": "string", "enum": ["placed", "payment_verification_pending", "payment_confirmed", "seller_confirmed", "preparing", "ready_for_pickup", "rider_assigned", "picked_up", "out_for_delivery", "delivered", "rejected", "cancelled"] },
+        "riderId": { "type": "string", "maxLength": 128 },
+        "riderName": { "type": "string", "maxLength": 100 },
+        "deliveryOtp": { "type": "string", "maxLength": 6 },
+        "createdAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "customerId", "shopId", "subtotal", "totalAmount", "orderStatus"]
+    },
+    "AppSettings": {
+      "title": "AppSettings",
+      "description": "Central super-admin configuration for platform rules and delivery thresholds",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "maxLength": 60 },
+        "platformName": { "type": "string", "maxLength": 100 },
+        "taglineUrdu": { "type": "string", "maxLength": 150 },
+        "taglineEnglish": { "type": "string", "maxLength": 150 },
+        "freeDeliveryThresholdKg": { "type": "number" },
+        "defaultDeliveryFee": { "type": "number" },
+        "intercityEnabled": { "type": "boolean" },
+        "commissionRatePercent": { "type": "number" },
+        "easypaisaAccountTitle": { "type": "string", "maxLength": 100 },
+        "easypaisaAccountNumber": { "type": "string", "maxLength": 30 },
+        "jazzcashAccountTitle": { "type": "string", "maxLength": 100 },
+        "jazzcashAccountNumber": { "type": "string", "maxLength": 30 },
+        "updatedAt": { "type": "string", "maxLength": 64 }
+      },
+      "required": ["id", "freeDeliveryThresholdKg", "defaultDeliveryFee"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile with role and location"
+    },
+    "/shops/{shopId}": {
+      "schema": "Shop",
+      "description": "Verified seller shops and delivery coverage"
+    },
+    "/products/{productId}": {
+      "schema": "Product",
+      "description": "Shopkeeper inventory with independent prices and units"
+    },
+    "/orders/{orderId}": {
+      "schema": "Order",
+      "description": "Customer purchase orders and status tracking"
+    },
+    "/settings/{settingId}": {
+      "schema": "AppSettings",
+      "description": "System-wide admin settings and rules"
+    }
+  }
+}
